@@ -7,8 +7,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 })
 export class CanvasComponent implements OnInit {
   @ViewChild('canvas') canvas: ElementRef;
-
   draggedElem = null;
+  focusedElem = null;
 
   mouseDown(event) {
     if (event.target !== document.activeElement || event.target.readOnly) {
@@ -28,16 +28,36 @@ export class CanvasComponent implements OnInit {
   }
 
   add() {
-    let input = document.createElement('input');
+    const input = document.createElement('input');
     input.onmousedown = (event) => this.mouseDown(event);
     input.ondblclick = (event) => this.doubleClick(event);
     input.onblur = (event) => this.inputBlur(event);
-    input.style.top = '200px';
-    input.style.left = '0';
-    input.style.position = 'absolute';
+    input.onfocus = (e) => this.onFocus(e);
+    input.className = 'draggable';
+    input.style.fontSize = '12px';
     input.value = 'Enter text here';
     input.readOnly = true;
+    input.onkeypress = (e: any) => {
+      e.target.style.width = `calc(${e.target.value.length} * em)`;
+    };
     this.canvas.nativeElement.appendChild(input);
+  }
+
+  addImg() {
+    const img = document.createElement('img');
+    img.onmousedown = (event) => this.mouseDown(event);
+    img.className = 'draggable';
+    img.src = prompt('Enter img url');
+    img.draggable = false;
+    img.onfocus = (e) => this.onFocus(e);
+    this.canvas.nativeElement.appendChild(img);
+
+    img.style.height = img.offsetHeight + 'px';
+    img.style.width = img.offsetWidth + 'px';
+  }
+
+  onFocus(e) {
+    this.focusedElem = e.target;
   }
 
   doubleClick(event) {
@@ -50,6 +70,12 @@ export class CanvasComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  clickHandler(event) {
+    if (event.target !== this.focusedElem) {
+      this.focusedElem = event.target;
+    }
   }
 
 }

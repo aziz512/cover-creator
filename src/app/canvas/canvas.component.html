@@ -1,6 +1,8 @@
-<div class="canvas" #canvas (mousemove)="mouseMove($event)" (mouseup)="mouseUp($event)">
-  <div class="draggable" (mousedown)="mouseDown($event)"></div>
+<app-canvas-settings [canvasRef]="canvas"></app-canvas-settings>
+<div class="canvas" #canvas (mousemove)="mouseMove($event)" (mouseup)="mouseUp($event)" (mousedown)="clickHandler($event)">
+  <!--<div class="draggable" (mousedown)="mouseDown($event)"></div>-->
 </div>
-
-
+<app-formatting-panel *ngIf="focusedElem && focusedElem.tagName === 'INPUT'" [activeElem]="focusedElem"></app-formatting-panel>
+<app-img-panel *ngIf="focusedElem && focusedElem.tagName === 'IMG'" [activeElem]="focusedElem"></app-img-panel>
 <button (click)="add()">Add text</button>
+<button (click)="addImg()">Add image</button>
