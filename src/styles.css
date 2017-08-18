@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.draggable{
+  width: 100px;
+  height:100px;
+  background: black;
+  position:absolute !important;
+  top:0;
+  left:0;
+}

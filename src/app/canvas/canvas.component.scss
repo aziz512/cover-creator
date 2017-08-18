@@ -1,0 +1,16 @@
+.canvas {
+  width:900px;
+  height:500px;
+  background: gray;
+  position: relative;
+
+  .draggable{
+    width: 100px;
+    height:100px;
+    background: black;
+    position:absolute !important;
+    top:0;
+    left:0;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,6 @@
+<div class="canvas" #canvas (mousemove)="mouseMove($event)" (mouseup)="mouseUp($event)">
+  <div class="draggable" (mousedown)="mouseDown($event)"></div>
+</div>
+
+
+<button (click)="add()">Add text</button>
